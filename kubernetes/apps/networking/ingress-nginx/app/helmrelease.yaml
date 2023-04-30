@@ -31,8 +31,7 @@ spec:
         - name: TZ
           value: "${TIMEZONE}"
       service:
-        annotations:
-          metallb.universe.tf/loadBalancerIPs: "${METALLB_INGRESS_ADDR}"
+        externalIPs: ["10.26.35.101"]
         externalTrafficPolicy: Local
       publishService:
         enabled: true
@@ -61,7 +60,12 @@ spec:
           "duration": $request_time,"method": "$request_method", "http_referrer": "$http_referer",
           "http_user_agent": "$http_user_agent"}
       metrics:
-        enabled: false
+        enabled: true
+        serviceMonitor:
+          enabled: true
+          namespace: networking
+          namespaceSelector:
+            any: true
       extraArgs:
         default-ssl-certificate: "networking/${SECRET_DOMAIN/./-}-production-tls"
       podAnnotations:
