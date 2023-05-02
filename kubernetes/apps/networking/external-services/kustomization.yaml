@@ -6,3 +6,4 @@ namespace: networking
 resources:
   - ./octoprint.yaml
   - ./octoprint-cam.yaml
+  - ./homeassistant.yaml
