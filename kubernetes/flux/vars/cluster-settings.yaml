@@ -7,3 +7,4 @@ metadata:
 data:
   TIMEZONE: "America/Chicago"
   KUBE_VIP_ADDR: "10.26.10.100"
+  SVC_REDIS_ADDR: "10.26.35.110"
