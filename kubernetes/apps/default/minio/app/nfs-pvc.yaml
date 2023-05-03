@@ -11,7 +11,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: 10.26.10.5
-    path: /volume2/k3sf
+    path: /volume2/nfs-fast
   mountOptions: ["nfsvers=4.1", "nconnect=8", "hard", "noatime"]
 ---
 apiVersion: v1
