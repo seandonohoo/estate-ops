@@ -3,5 +3,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: vpn-gateway
 resources:
-  - ./vpn-gateway/ks.yaml
   - ./namespace.yaml
+  #- ./vpn-gateway/ks.yaml
