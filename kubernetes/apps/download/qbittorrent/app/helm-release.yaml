@@ -1,0 +1,120 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: qbittorrent
+  namespace: download
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  dependsOn:
+    - name: vpn-gateway
+      namespace: vpn-gateway
+    - name: ingress-nginx
+      namespace: networking
+  values:
+    controller:
+      type: statefulset
+    image:
+      repository: ghcr.io/onedr0p/qbittorrent
+      tag: 4.5.2@sha256:4fb6a9dc178ce58716283ca849d3f5cc34ddf4cc21740793b142448df911cdf0
+    env:
+      TZ: America/Chicago
+      QBITTORRENT__PORT: &port 80
+      QBITTORRENT__BT_PORT: &port-bt "${SECRET_VPN_BT_FORWARD_PORT_1}"
+    podAnnotations:
+      setGateway: "true"
+    hostname: qbitt
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+      bittorrent:
+        enabled: true
+        type: LoadBalancer
+        externalIPs: ["${SVC_QBITTORRENT_ADDR}"]
+        ports:
+          bittorrent:
+            enabled: true
+            port: *port-bt
+            protocol: TCP
+            targetPort: *port-bt
+        externalTrafficPolicy: Local
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          authentik.home.arpa/enabled: "true"
+          external-dns.home.arpa/enabled: "true"
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            proxy_hide_header "x-webkit-csp";
+            proxy_hide_header "content-security-policy";
+            proxy_hide_header "X-Frame-Options";
+            proxy_set_header Accept-Encoding "";
+          hajimari.io/icon: mdi:download
+        hosts:
+          - host: &host "qb.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /config
+        accessMode: ReadWriteOnce
+        size: 10Gi
+        storageClass: ceph-block
+        labels:
+          snapshot.home.arpa/enabled: "true"
+      - name: tempdownloads
+        mountPath: /tempdownloads
+        accessMode: ReadWriteOnce
+        size: 200Gi
+        storageClass: local-path
+        labels:
+          snapshot.home.arpa/enabled: "true"
+    persistence:
+      cache:
+        enabled: true
+        type: emptyDir
+        mountPath: /config/qBittorrent/cache
+      media:
+        enabled: true
+        type: nfs
+        server: 10.26.10.5
+        path: /volume1/Media
+        mountPath: /media
+      incomplete:
+        enabled: true
+        type: emptyDir
+    resources:
+      requests:
+        cpu: 10m
+        memory: 250Mi
+      limits:
+        memory: 6000Mi
