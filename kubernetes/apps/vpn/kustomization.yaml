@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: vpn
 resources:
   - ./namespace.yaml
-  #- ./vpn-gateway/ks.yaml
+  - ./vpn-gateway/ks.yaml
