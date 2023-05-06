@@ -1,0 +1,86 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prowlarr
+  namespace: download
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/onedr0p/prowlarr-nightly
+      tag: 1.5.0.3291@sha256:25233efe072255dd436af8f502123bc1600dd163283c61c5f3f20279d52ebbe0
+    env:
+      TZ: America/Chicago
+      PROWLARR__INSTANCE_NAME: Prowlarr
+      PROWLARR__PORT: &port 80
+      PROWLARR__LOG_LEVEL: info
+      PROWLARR__AUTHENTICATION_METHOD: External
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    podAnnotations:
+      setGateway: "true"
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          # authentik.home.arpa/enabled: "true"
+          # external-dns.home.arpa/enabled: "true"
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            proxy_set_header Accept-Encoding "";
+          hajimari.io/icon: mdi:movie-search
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /config
+        accessMode: ReadWriteOnce
+        size: 2Gi
+        storageClass: ceph-block
+        labels:
+          snapshot.home.arpa/enabled: "true"
+    resources:
+      requests:
+        cpu: 10m
+        memory: 100Mi
+      limits:
+        memory: 500Mi
