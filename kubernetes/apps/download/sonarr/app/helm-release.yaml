@@ -1,0 +1,100 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app sonarr
+  namespace: download
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  dependsOn:
+    - name: vpn-gateway
+      namespace: vpn-gateway
+    - name: ingress-nginx
+      namespace: networking
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/onedr0p/sonarr-develop
+      tag: 4.0.0.451@sha256:e7738ea6dd940191ab3044b134f186dca4cc7dcd5fd8f73d550c8a34d870703f
+    env:
+      TZ: America/Chicago
+      SONARR__INSTANCE_NAME: Sonarr
+      SONARR__PORT: &port 80
+      SONARR__LOG_LEVEL: info
+    podAnnotations:
+      setGateway: "true"
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          # authentik.home.arpa/enabled: "true"
+          # external-dns.home.arpa/enabled: "true"
+          hajimari.io/icon: mdi:television-classic
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 100
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /config
+        accessMode: ReadWriteOnce
+        size: 15Gi
+        storageClass: ceph-block
+        labels:
+          snapshot.home.arpa/enabled: "true"
+    persistence:
+      media:
+        enabled: true
+        type: nfs
+        server: 10.26.10.5
+        path: /volume1/Media
+        mountPath: /media
+      incomplete:
+        enabled: true
+        type: emptyDir
+    resources:
+      requests:
+        cpu: 15m
+        memory: 250Mi
+      limits:
+        memory: 2000Mi
