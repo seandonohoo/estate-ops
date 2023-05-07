@@ -24,11 +24,6 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  dependsOn:
-    - name: vpn-gateway
-      namespace: vpn-gateway
-    - name: ingress-nginx
-      namespace: networking
   uninstall:
     keepHistory: false
   values:
