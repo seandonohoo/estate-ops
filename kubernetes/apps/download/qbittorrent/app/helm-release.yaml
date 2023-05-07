@@ -77,7 +77,8 @@ spec:
       runAsUser: 568
       runAsGroup: 568
       fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
+      fsGroupChangePolicy: OnRootMismatch
+      supplementalGroups: [10000]
     volumeClaimTemplates:
       - name: config
         mountPath: /config
