@@ -9,3 +9,4 @@ resources:
   - ./minio/ks.yaml
   - ./plex/ks.yaml
   - ./cloudnative-pg/ks.yaml
+  - ./proton-bridge/ks.yaml
