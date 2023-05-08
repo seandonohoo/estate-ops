@@ -1,0 +1,14 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: authentik
+  namespace: security
+spec:
+  values:
+    initContainers:
+      init-db:
+        image: ghcr.io/onedr0p/postgres-initdb:14.7@sha256:0f218a74ad4323e843ce18c97805f32ae5ab514df751acc8caa030d6f2f038d5
+        envFrom:
+          - secretRef:
+              name: authentik-secret
