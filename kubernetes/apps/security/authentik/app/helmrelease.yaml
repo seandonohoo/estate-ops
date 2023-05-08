@@ -91,15 +91,15 @@ spec:
     podAnnotations:
       secret.reloader.stakater.com/reload: authentik-secret
 
-  # valuesFrom:
-  #   # GEOIP
-  #   - kind: Secret
-  #     name: authentik-secret
-  #     valuesKey: GEOIP_ACCOUNT_ID
-  #     targetPath: geoip.accountId
-  #     optional: false
-  #   - kind: Secret
-  #     name: authentik-secret
-  #     valuesKey: GEOLITE_LICENSE_KEY
-  #     targetPath: geoip.licenseKey
-  #     optional: false
+  valuesFrom:
+    # GEOIP
+    - kind: Secret
+      name: authentik-secret
+      valuesKey: GEOIP_ACCOUNT_ID
+      targetPath: geoip.accountId
+      optional: false
+    - kind: Secret
+      name: authentik-secret
+      valuesKey: GEOLITE_LICENSE_KEY
+      targetPath: geoip.licenseKey
+      optional: false
