@@ -29,7 +29,7 @@ spec:
       imap:
         enabled: true
         type: LoadBalancer
-        loadBalancerIP: "${SVC_PROTON_BRIDGE}"
+        externalIPs: ["${SVC_PROTON_BRIDGE}"]
         annotations:
           coredns.io/hostname: "imap.${SECRET_DOMAIN}"
           metallb.universe.tf/allow-shared-ip: mail-svc
@@ -41,7 +41,7 @@ spec:
       smtp:
         enabled: true
         type: LoadBalancer
-        loadBalancerIP: "${SVC_PROTON_BRIDGE}"
+        externalIPs: ["${SVC_PROTON_BRIDGE}"]
         annotations:
           coredns.io/hostname: "smtp.${SECRET_DOMAIN}"
           metallb.universe.tf/allow-shared-ip: mail-svc
