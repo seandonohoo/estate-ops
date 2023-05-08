@@ -3,7 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: protonmail-bridge-config-v1
-  namespace: mail
+  namespace: default
 spec:
   accessModes:
     - ReadWriteOnce
