@@ -38,6 +38,8 @@ spec:
       TZ: America/Chicago
       QBITTORRENT__PORT: &port 80
       QBITTORRENT__BT_PORT: &port-bt "${SECRET_VPN_BT_FORWARD_PORT_1}"
+    podAnnotations:
+      setGateway: "true"
     service:
       main:
         ports:
