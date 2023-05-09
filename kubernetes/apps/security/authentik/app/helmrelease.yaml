@@ -40,10 +40,10 @@ spec:
         secretKeyRef:
           name: authentik-secret
           key: SMTP_HOST
-      # AUTHENTIK_EMAIL__PORT:
-      #   secretKeyRef:
-      #     name: authentik-secret
-      #     key: SMTP_PORT
+      AUTHENTIK_EMAIL__PORT:
+        secretKeyRef:
+          name: authentik-secret
+          key: SMTP_PORT
       AUTHENTIK_EMAIL__USERNAME:
         secretKeyRef:
           name: authentik-secret
@@ -60,18 +60,18 @@ spec:
         secretKeyRef:
           name: authentik-secret
           key: AUTHENTIK_SECRET_KEY
-      # AUTHENTIK_POSTGRESQL__HOST:
-      #   secretKeyRef:
-      #     name: authentik-secret
-      #     key: POSTGRES_HOST
-      # AUTHENTIK_POSTGRESQL__NAME:
-      #   secretKeyRef:
-      #     name: authentik-secret
-      #     key: POSTGRES_DB
-      # AUTHENTIK_POSTGRESQL__USER:
-      #   secretKeyRef:
-      #     name: authentik-secret
-      #     key: POSTGRES_USER
+      AUTHENTIK_POSTGRESQL__HOST:
+        secretKeyRef:
+          name: authentik-secret
+          key: POSTGRES_HOST
+      AUTHENTIK_POSTGRESQL__NAME:
+        secretKeyRef:
+          name: authentik-secret
+          key: POSTGRES_DB
+      AUTHENTIK_POSTGRESQL__USER:
+        secretKeyRef:
+          name: authentik-secret
+          key: POSTGRES_USER
       AUTHENTIK_POSTGRESQL__PASSWORD:
         secretKeyRef:
           name: authentik-secret
