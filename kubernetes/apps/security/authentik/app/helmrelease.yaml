@@ -28,12 +28,47 @@ spec:
 
     authentik:
       log_level: debug
+      secret_key: "${AUTHENTIK_SECRET_KEY}"
+      email:
+        host: "${SMTP_HOST}"
+        port: "${SMTP_PORT}"
+        username: "${SMTP_USER}"
+        password: "${SMTP_PASS}"
+        use_tls: true
+        from: "${SMTP_FROM}"
+      error_reporting:
+        enabled: false
+        send_pii: false
+      postgresql:
+        host: "${POSTGRES_HOST}"
+        port: 5432
+        name: ""
+        user: ""
+        password: ""
       redis:
         host: redis-lb.default.svc.cluster.local
         port: 6379
         db: 7
       outposts:
         docker_image_base: ghcr.io/goauthentik/%(type)s:%(version)s
+
+    envValueFrom:
+      AUTHENTIK_POSTGRESQL__HOST:
+        secretKeyRef:
+          name: authentik-secret
+          key: POSTGRES_HOST
+      AUTHENTIK_POSTGRESQL__NAME:
+        secretKeyRef:
+          name: authentik-secret
+          key: POSTGRES_DB
+      AUTHENTIK_POSTGRESQL__USER:
+        secretKeyRef:
+          name: authentik-secret
+          key: POSTGRES_USER
+      AUTHENTIK_POSTGRESQL__PASSWORD:
+        secretKeyRef:
+          name: authentik-secret
+          key: POSTGRES_PASS
 
     postgresql:
       enabled: false
@@ -61,49 +96,3 @@ spec:
       valuesKey: GEOLITE_LICENSE_KEY
       targetPath: geoip.licenseKey
       optional: false
-    - kind: Secret
-      name: authentik-secret
-      valuesKey: SMTP_HOST
-      targetPath: AUTHENTIK_EMAIL__HOST
-      optional: false
-
-    # AUTHENTIK_EMAIL__HOST:
-    #     secretKeyRef:
-    #       name: authentik-secret
-    #       key: SMTP_HOST
-    #   AUTHENTIK_EMAIL__PORT:
-    #     secretKeyRef:
-    #       name: authentik-secret
-    #       key: SMTP_PORT
-    #   AUTHENTIK_EMAIL__USERNAME:
-    #     secretKeyRef:
-    #       name: authentik-secret
-    #       key: SMTP_USER
-    #   AUTHENTIK_EMAIL__PASSWORD:
-    #     secretKeyRef:
-    #       name: authentik-secret
-    #       key: SMTP_PASS
-    #   AUTHENTIK_EMAIL__FROM:
-    #     secretKeyRef:
-    #       name: authentik-secret
-    #       key: SMTP_FROM
-    #   AUTHENTIK_SECRET_KEY:
-    #     secretKeyRef:
-    #       name: authentik-secret
-    #       key: AUTHENTIK_SECRET_KEY
-    #   AUTHENTIK_POSTGRESQL__HOST:
-    #     secretKeyRef:
-    #       name: authentik-secret
-    #       key: POSTGRES_HOST
-    #   AUTHENTIK_POSTGRESQL__NAME:
-    #     secretKeyRef:
-    #       name: authentik-secret
-    #       key: POSTGRES_DB
-    #   AUTHENTIK_POSTGRESQL__USER:
-    #     secretKeyRef:
-    #       name: authentik-secret
-    #       key: POSTGRES_USER
-    #   AUTHENTIK_POSTGRESQL__PASSWORD:
-    #     secretKeyRef:
-    #       name: authentik-secret
-    #       key: POSTGRES_PASS
