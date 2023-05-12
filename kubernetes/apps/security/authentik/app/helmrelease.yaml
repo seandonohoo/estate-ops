@@ -63,8 +63,8 @@ spec:
       optional: false
     - kind: Secret
       name: authentik-secret
-      valuesKey: AUTHENTIK_EMAIL__HOST
-      targetPath: SMTP_HOST
+      valuesKey: SMTP_HOST
+      targetPath: AUTHENTIK_EMAIL__HOST
       optional: false
 
     # AUTHENTIK_EMAIL__HOST:
