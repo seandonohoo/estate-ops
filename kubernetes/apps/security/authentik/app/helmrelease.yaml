@@ -48,6 +48,9 @@ spec:
         db: 7
       outposts:
         docker_image_base: ghcr.io/goauthentik/%(type)s:%(version)s
+    envFrom:
+      - secretRef:
+          name: authentik-secret
 
     postgresql:
       enabled: false
