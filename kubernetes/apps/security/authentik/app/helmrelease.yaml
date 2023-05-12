@@ -26,6 +26,10 @@ spec:
     geoip:
       enabled: false
 
+    envFrom:
+      - secretRef:
+          name: authentik-secret
+
     authentik:
       log_level: debug
       secret_key: "${AUTHENTIK_SECRET_KEY}"
