@@ -5,8 +5,4 @@ kind: Kustomization
 namespace: default
 resources:
   - ./helmrelease.yaml
-  #- ./volsync.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: changedetection
-      app.kubernetes.io/instance: changedetection
+  - ./volsync.yaml
