@@ -1,16 +1,16 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/kustomization_v1beta2.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: cluster-apps-qbittorrent
+  name: cluster-apps-overseerr
   namespace: flux-system
   labels:
     substitution.flux.home.arpa/enabled: "true"
 spec:
   dependsOn:
     - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-vpn-gateway
-  path: ./kubernetes/apps/download/qbittorrent/app
+  path: ./kubernetes/apps/default/overseerr/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -18,8 +18,8 @@ spec:
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
-      name: qbittorrent
-      namespace: download
+      name: overseerr
+      namespace: default
   interval: 30m
   retryInterval: 1m
   timeout: 3m
