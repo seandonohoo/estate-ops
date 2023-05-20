@@ -14,4 +14,4 @@ resources:
   - ./uptime-kuma/ks.yaml
   - ./overseerr/ks.yaml
   - ./tautulli/ks.yaml
-  - ./paperless/ks.yaml
+  # - ./paperless/ks.yaml
