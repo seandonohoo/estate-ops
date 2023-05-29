@@ -40,6 +40,8 @@ spec:
       namespaceSelector:
         matchNames:
           - default
+          - download
+          - security
     ingress:
       main:
         enabled: true
