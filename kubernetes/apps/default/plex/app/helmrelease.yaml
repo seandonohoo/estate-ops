@@ -81,6 +81,7 @@ spec:
         type: emptyDir
     nodeSelector:
       intel.feature.node.kubernetes.io/gpu: "true"
+      kubernetes.io/hostname: "k3s4"
     resources:
       requests:
         gpu.intel.com/i915: 1
