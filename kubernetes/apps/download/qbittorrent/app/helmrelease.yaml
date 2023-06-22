@@ -92,18 +92,18 @@ spec:
         accessMode: ReadWriteOnce
         size: 10Gi
         storageClass: ceph-block
-      # - name: tempdownloads
-      #   mountPath: /tempdownloads
-      #   accessMode: ReadWriteOnce
-      #   size: 200Gi
-      #   storageClass: local-path
-      #   labels:
-      #     snapshot.home.arpa/enabled: "true"
+      - name: tempdownloads
+        mountPath: /tempdownloads
+        accessMode: ReadWriteOnce
+        size: 200Gi
+        storageClass: local-path
+        labels:
+          snapshot.home.arpa/enabled: "true"
     persistence:
-      # cache:
-      #   enabled: true
-      #   type: emptyDir
-      #   mountPath: /config/qBittorrent/cache
+      cache:
+        enabled: true
+        type: emptyDir
+        mountPath: /config/qBittorrent/cache
       media:
         enabled: true
         type: nfs
