@@ -18,6 +18,10 @@ spec:
         namespace: flux-system
       interval: 15m
 
+  dependsOn:
+    - name: authentik-redis
+      namespace: security
+
   values:
     image:
       repository: ghcr.io/goauthentik/server
@@ -50,9 +54,8 @@ spec:
         user: ""
         password: ""
       redis:
-        host: redis.default.svc.cluster.local
+        host: "authentik-redis-master"
         port: 6379
-        db: 5
       outposts:
         docker_image_base: ghcr.io/goauthentik/%(type)s:%(version)s
 
