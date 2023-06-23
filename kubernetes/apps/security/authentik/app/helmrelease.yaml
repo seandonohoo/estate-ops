@@ -53,9 +53,6 @@ spec:
         name: ""
         user: ""
         password: ""
-      redis:
-        host: "authentik-redis-master"
-        port: 6379
       outposts:
         docker_image_base: ghcr.io/goauthentik/%(type)s:%(version)s
 
@@ -80,7 +77,7 @@ spec:
     postgresql:
       enabled: false
     redis:
-      enabled: false
+      enabled: true
 
     prometheus:
       rules:
