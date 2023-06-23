@@ -11,7 +11,6 @@ spec:
     - name: cluster-apps-cloudnative-pg
     - name: cluster-apps-glauth
     - name: cluster-apps-external-secrets-stores
-    - name: cluster-apps-redis-app
     - name: cluster-apps-proton-bridge
   path: ./kubernetes/apps/security/authentik/app
   prune: true
