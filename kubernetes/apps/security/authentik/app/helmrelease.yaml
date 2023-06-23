@@ -18,10 +18,6 @@ spec:
         namespace: flux-system
       interval: 15m
 
-  dependsOn:
-    - name: authentik-redis
-      namespace: security
-
   values:
     image:
       repository: ghcr.io/goauthentik/server
