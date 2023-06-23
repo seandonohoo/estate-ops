@@ -3,10 +3,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./namespace.yaml
-  - ./changedetection/ks.yaml
+  # - ./changedetection/ks.yaml
   - ./echo-server/ks.yaml
   - ./hajimari/ks.yaml
-  # - ./redis/ks.yaml
   - ./minio/ks.yaml
   - ./plex/ks.yaml
   - ./cloudnative-pg/ks.yaml
