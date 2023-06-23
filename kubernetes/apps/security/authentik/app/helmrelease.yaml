@@ -52,7 +52,7 @@ spec:
       redis:
         host: redis-lb.default.svc.cluster.local
         port: 6379
-        db: 3
+        db: 5
       outposts:
         docker_image_base: ghcr.io/goauthentik/%(type)s:%(version)s
 
