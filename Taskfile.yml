@@ -16,10 +16,10 @@ includes:
   fx: .taskfiles/Flux/Tasks.yml
   ku: .taskfiles/Kubernetes/Tasks.yml
   vs: .taskfiles/VolSync/Tasks.yml
-  olda: .taskfiles/AnsibleTasks.yml
-  oldc: .taskfiles/ClusterTasks.yml
-  oldp: .taskfiles/PrecommitTasks.yml
-  oldt: .taskfiles/TerraformTasks.yml
+  olda: .taskfiles/OLD/AnsibleTasks.yml
+  oldc: .taskfiles/OLD/ClusterTasks.yml
+  oldp: .taskfiles/OLD/PrecommitTasks.yml
+  oldt: .taskfiles/OLD/TerraformTasks.yml
 
 tasks:
 
