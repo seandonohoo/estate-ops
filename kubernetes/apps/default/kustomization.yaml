@@ -8,7 +8,7 @@ resources:
   - ./hajimari/ks.yaml
   - ./minio/ks.yaml
   - ./plex/ks.yaml
-  # - ./cloudnative-pg/ks.yaml
+  - ./cloudnative-pg/ks.yaml
   - ./proton-bridge/ks.yaml
   # - ./uptime-kuma/ks.yaml
   - ./overseerr/ks.yaml
