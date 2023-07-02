@@ -21,3 +21,8 @@ jobs:
         with:
           configuration-path: .github/labeler.yaml
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Labeler
+        uses: actions/labeler@9fcb2c2f5584144ca754f8bfe8c6f81e77753375 # v4.1.0
+        with:
+          configuration-path: .github/labeler.yaml
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
