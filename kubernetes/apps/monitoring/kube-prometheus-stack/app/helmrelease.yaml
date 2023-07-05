@@ -247,7 +247,6 @@ spec:
           #   static_configs:
           #     - targets: ["status.turbo.ac"] # router
           - job_name: k8s-lb
-            metrics_path: /metrics
             static_configs:
               - targets: ["10.26.10.1:8404"] # router
           # - job_name: kopia
