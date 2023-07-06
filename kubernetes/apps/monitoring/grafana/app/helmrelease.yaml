@@ -55,6 +55,7 @@ spec:
         check_for_plugin_updates: false
       auth:
         oauth_auto_login: true
+        oauth_allow_insecure_email_lookup: true
       auth.generic_oauth:
         enabled: true
         name: Authentik
@@ -65,7 +66,6 @@ spec:
         groups_attribute_path: groups
         name_attribute_path: name
         use_pkce: true
-        oauth_allow_insecure_email_lookup: true
       auth.generic_oauth.group_mapping:
         org_id: 1
         role_attribute_path: |
