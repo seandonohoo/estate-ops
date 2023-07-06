@@ -243,9 +243,9 @@ spec:
           # - job_name: frr-exporter
           #   static_configs:
           #     - targets: ["vyos.turbo.ac:9342"]
-          # - job_name: gatus
-          #   static_configs:
-          #     - targets: ["status.turbo.ac"] # router
+          - job_name: corerouter
+            static_configs:
+              - targets: ["10.26.10.1:9100"] # router
           - job_name: k8s-lb
             static_configs:
               - targets: ["10.26.10.1:8404"] # router
