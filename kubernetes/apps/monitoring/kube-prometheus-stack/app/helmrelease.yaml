@@ -254,7 +254,7 @@ spec:
           #     - targets: ["expanse.turbo.ac:51516"] # nas
           - job_name: minio-job
             metrics_path: /minio/v2/metrics/cluster
-            token: "${SECRET_MINIO_TOKEN}"
+            bearer_token: "${SECRET_MINIO_TOKEN}"
             scheme: https
             static_configs:
               - targets: ["s3.${SECRET_DOMAIN}"] # nas
