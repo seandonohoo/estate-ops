@@ -7,3 +7,5 @@ resources:
   - ./mainsail.yaml
   # - ./fluidd.yaml
   - ./homeassistant.yaml
+  - ./minio.yaml
+  - ./s3-minio.yaml
