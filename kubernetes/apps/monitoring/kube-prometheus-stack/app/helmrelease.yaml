@@ -258,6 +258,15 @@ spec:
             scheme: https
             static_configs:
               - targets: ["s3.${SECRET_DOMAIN}"] # nas
+          - job_name: "hass"
+            metrics_path: /api/prometheus
+            bearer_token:
+            scrape_interval: 60s
+            authorization:
+              credentials: "${SECRET_HASS_TOKEN}"
+            scheme: https
+            static_configs:
+              - targets: ['hass.donohoo.io'] #hass
           # - job_name: node-exporter
           #   static_configs:
           #     - targets: ["expanse.turbo.ac:9100", "pikvm.turbo.ac:9100", "vyos.turbo.ac:9100"]
