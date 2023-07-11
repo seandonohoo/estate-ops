@@ -270,7 +270,7 @@ spec:
             metrics_path: /metrics
             scrape_interval: 60s
             static_configs:
-              - targets: ["http://10.26.10.70"]
+              - targets: ["10.26.10.70"]
           # - job_name: node-exporter
           #   static_configs:
           #     - targets: ["expanse.turbo.ac:9100", "pikvm.turbo.ac:9100", "vyos.turbo.ac:9100"]
