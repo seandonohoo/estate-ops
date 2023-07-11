@@ -268,7 +268,7 @@ spec:
               - targets: ['hass.donohoo.io'] #hass
           - job_name: "Z2M-Stick"
             metrics_path: /metrics
-            scape_interval: 60s
+            scrape_interval: 60s
             static_configs:
               - targets: ["http://10.26.10.70"]
           # - job_name: node-exporter
