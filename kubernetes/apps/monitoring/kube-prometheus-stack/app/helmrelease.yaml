@@ -266,11 +266,11 @@ spec:
             scheme: https
             static_configs:
               - targets: ['hass.donohoo.io'] #hass
-          - job_name: 'Z2M-Stick'
+          - job_name: "Z2M-Stick"
             metrics_path: /metrics
             scape_interval: 60s
             static_configs:
-              - targets: ["http://10.26.10.70/metrics"]
+              - targets: ["http://10.26.10.70"]
           # - job_name: node-exporter
           #   static_configs:
           #     - targets: ["expanse.turbo.ac:9100", "pikvm.turbo.ac:9100", "vyos.turbo.ac:9100"]
