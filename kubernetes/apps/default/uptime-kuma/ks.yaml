@@ -7,8 +7,6 @@ metadata:
   labels:
     substitution.flux.home.arpa/enabled: "true"
 spec:
-  dependsOn:
-    - name: cluster-apps-csi-driver-nfs-apps
   path: ./kubernetes/apps/default/uptime-kuma/app
   prune: true
   sourceRef:
