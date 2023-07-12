@@ -271,6 +271,14 @@ spec:
             scrape_interval: 60s
             static_configs:
               - targets: ["10.26.10.70"]
+          - job_name: "Uptime Kuma"
+            metrics_path: /metrics
+            basic_auth:
+              username: "${SECRET_UPTIME_USERNAME}"
+              password: "${SECRET_UPTIME_PASSWORD}"
+            scrape_interval: 20s
+            static_configs:
+              - targets: ["uptime.${SECRET_DOMAIN}"]
           # - job_name: node-exporter
           #   static_configs:
           #     - targets: ["expanse.turbo.ac:9100", "pikvm.turbo.ac:9100", "vyos.turbo.ac:9100"]
